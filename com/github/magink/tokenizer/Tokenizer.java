@@ -1,4 +1,4 @@
-package src.main;
+package com.github.magink.tokenizer;
 
 public class Tokenizer {
   private static final String WORD_TOKEN = "/^[0-9]+/ ";
