@@ -4,48 +4,54 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Tokenizer classifies sections of a user supplied String from the user and
+ * classifies it according to the rules of the user supplied 
+ * Grammar in the form of regex(es)
+ * 
+ * The user sends in one or more TokenType in an array and the String 
+ * to be tokenized.  
+ *   
+ */
+
 public class Tokenizer {
   private String input = "";
   private int activeToken = 0;
-  private ArrayList<Pattern> patterns = new ArrayList<>();
-  private ArrayList<String> tokens = new ArrayList<>();
+  private Grammar grammar; 
+  private ArrayList<Token> tokens = new ArrayList<>();
 
-  public Tokenizer(String regex, String input) {
+  public Tokenizer(Grammar grammar, String input) {
     this.input = input;
-    Pattern pattern = Pattern.compile(regex);
-    patterns.add(pattern);
-    // System.out.println("Pattern is " + patterns.toString());
+    this.grammar = grammar;
+    System.out.println(grammar.toString());
     findToken();
   }
-  // public Tokenizer(String[] regexes, String input) {
-  //   this.input = input;
-  //   for(String regex : regexes) {
-  //     Pattern pattern = Pattern.compile(regex);
-  //     patterns.add(pattern);
-  //   }
-  //   System.out.println(patterns.toString());
-  // }
-  // public String getToken() {
-  //   return tokens.get(activeToken);
-  // }
-  // public void nextToken() {
-  //   activeToken++;
-  // }
+  public Token getToken() {
+    return tokens.get(activeToken);
+  }
+  public void nextToken() {
+    activeToken++;
+  }
+  private void hasNextToken(){
+
+  }
   private void findToken () {
-    for(int i = 0; i < patterns.size(); i++) {
-      Matcher matcher = patterns
+
+    for(int i = 0; i < grammar.NumberOfTokenTypes(); i++) {
+      Matcher matcher = grammar
+                        .getTokenTypes()
                         .get(i)
-                        .matcher(input);
-      // System.out.println(matcher.toString());
+                        .getPattern()
+                        .matcher(input); 
       while(matcher.find()) {
-        String token = input
+        String value = input
                       .substring(
                           matcher.start(),
                           matcher.end());
-        System.out.println("token value: " + token);
+        Token token = new Token("WORD", value);
+        System.out.println(token.toString());
+        tokens.add(token);
       }
-      // System.out.println(matcher.toString());
-      tokens.add("a");
     }
   }
 }

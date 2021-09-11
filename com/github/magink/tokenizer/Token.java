@@ -13,4 +13,8 @@ class Token {
   public String getValue() {
     return value;
   }
+  @Override
+  public String toString() {
+    return "Type: " + type + "\t Value: " + value;
+  }
 }
