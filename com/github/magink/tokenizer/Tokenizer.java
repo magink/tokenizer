@@ -25,12 +25,8 @@ public class Tokenizer {
   }
   public void nextToken() throws LexicalException {
     if (activeToken < tokens.size()) {
-      try {
-        findNextToken();
-        activeToken++;
-      } catch(Exception e) {
-        System.out.println(e);
-      }
+      findNextToken();
+      activeToken++;
     }
   }
   public void previousToken() {
@@ -74,16 +70,19 @@ public class Tokenizer {
    */
   private Token findMatch(TokenType type) {
     Matcher matcher = type.getMatcher(toMatch);
-    if(matcher.find()) {
+    Token token = null;
+    if(matcher.hitEnd()) {
+      token = new Token("END", "");
+    } 
+    else if (matcher.find()) {
       String matchedValue = 
         toMatch
         .substring(
           matcher.start(),
           matcher.end());
-      Token token = new Token(type.getName(), matchedValue);
-      return token;
-    } 
-    return null;
+      token = new Token(type.getName(), matchedValue);
+    }
+    return token;
   }
   private boolean hasManyTokenTypes () {
     return grammar.getNumberOfTokenTypes() > 1;
