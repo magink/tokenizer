@@ -1,19 +1,26 @@
 package com.github.magink.tokenizer;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
 public class TokenType {
-  private Pattern pattern;
   private String name;
-  protected TokenType(String regex, String name) throws PatternSyntaxException {
+  private String regex;
+  private Matcher matcher;
+  protected TokenType(String regex, String name) {
     this.name = name;
-    pattern = Pattern.compile(regex);
+    this.regex = regex;
   }
-  public Pattern getPattern() {
-    return pattern;
+  public String getRegex() {
+    return regex;
   }
   public String getName() {
     return name;
+  }
+  public Matcher getMatcher(String toMatch) {
+    if (matcher == null) {
+      matcher = Pattern.compile(regex).matcher(toMatch);
+    }
+    return matcher;
   }
 }

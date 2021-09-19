@@ -1,7 +1,6 @@
 package com.github.magink.tokenizer;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 /**
  * A Grammar is made of one or more types. 
@@ -20,13 +19,10 @@ public class Grammar {
       types.add(tokenType);
     }
   }
-  public int NumberOfTokenTypes() {
+  public int getNumberOfTokenTypes() {
     return types.size();
   } 
-  public TokenType getToken(int index) {
+  public TokenType getTokenType(int index) {
     return types.get(index);
-  }
-  public ArrayList<TokenType> getTokenTypes () {
-    return types;
   }
 }

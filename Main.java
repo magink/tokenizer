@@ -11,13 +11,34 @@ public class Main {
     String regexNoDigits =  "[\\w|åäöÅÄÖ]+";
     String englishWords = "This was the day when. it happened";
     String swedishWords = "Det var en gång en liten hund.";
-    String numbers = "1265 432534 234 5";
+    String numbers = "1265 4325.34 234 5";
     String[] manyRegex = new String[] {regexWord, regexInteger};
 
+    Grammar intGrammar = new Grammar();
+    // floatGrammar.addType(regexFloat, "FLOAT");
+    intGrammar.addType(regexInteger, "INTEGER");
 
-    Grammar wordGrammar = new Grammar();
-    wordGrammar.addType(regexWord, "WORD");
-    // wordGrammar.addType(regexDot, "DOT");
-    Tokenizer tokenizerWord = new Tokenizer(wordGrammar, englishWords);
+    // Grammar wordGrammar = new Grammar();
+    // wordGrammar.addType(regexWord, "WORD");
+    // // wordGrammar.addType(regexDot, "DOT");
+
+    try {
+      Tokenizer tokenizerWord = new Tokenizer(intGrammar, numbers);
+      String activeWord = tokenizerWord.getActiveToken();
+      System.out.println(activeWord);
+      for (int i = 0; i < 5; i++) {
+        tokenizerWord.nextToken();
+        activeWord = tokenizerWord.getActiveToken();
+        System.out.println(activeWord);
+      }
+      for(int i = 0; i < 2; i++) {
+        tokenizerWord.previousToken();
+        activeWord = tokenizerWord.getActiveToken();
+        System.out.println(activeWord);
+      }
+    } catch(Exception e) {
+      System.out.println(e);
+    }
+    
   }
 }
