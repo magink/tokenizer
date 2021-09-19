@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 
 /**
- * Tokenizer analyses sections of an input String and
- * classifies it according to the rules of the input Grammar. 
+ * Tokenizer analyses sections of a String input  and
+ * classifies it according to the rules of a Grammar input. 
+ * The user can either request the active token, step forwards or backwards to 
+ * get the next or previous token. When user has reached the end of the String input 
+ * a special END token is returned.
  */
 
 public class Tokenizer {
@@ -24,7 +27,7 @@ public class Tokenizer {
     return tokens.get(activeToken).toString();
   }
   public void nextToken() throws LexicalException {
-    if (activeToken < tokens.size()) {
+    if (activeToken < tokens.size()) { // This doesn't make sense logically
       findNextToken();
       activeToken++;
     }
@@ -37,7 +40,7 @@ public class Tokenizer {
 
   private void findNextToken () throws LexicalException {
 
-    Token nextToken;
+    Token nextToken = null;
     if (hasManyTokenTypes()) {
       nextToken = findLongestMatch();
     } else {
@@ -50,6 +53,10 @@ public class Tokenizer {
     tokens.add(nextToken);
   }
 
+  /**
+   * Matches against many TokenTypes for the longest value. 
+   * @return A matched Token with type and value.  
+   */
   private Token findLongestMatch() {
     Token longest = new Token("", "");
     Token current = new Token("", "");
@@ -66,7 +73,8 @@ public class Tokenizer {
   /**
    * Matches against a single TokenType. 
    * @param type The token type to match against, name of type and pattern. 
-   * @return a matched token that has a type and value
+   * @return a matched Token with type and value. 
+   * Returns a special END token if no more matched tokens are found.
    */
   private Token findMatch(TokenType type) {
     Matcher matcher = type.getMatcher(toMatch);
