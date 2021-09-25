@@ -6,6 +6,5 @@
   "java.project.sourcePaths": [
     "src",
     "test",
-    "."
   ]
 }

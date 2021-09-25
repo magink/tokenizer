@@ -118,7 +118,6 @@ class TestWordAndDotGrammar {
      assertThrows(LexicalException.class, () -> {
       Tokenizer tokenizer = new Tokenizer(grammar, input);
       assertEquals("a", tokenizer.getActiveTokenValue());
-      // Error is with the regex, \w include digits as well. 
     });
    }
 }
