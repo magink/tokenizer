@@ -55,10 +55,10 @@ public class Tokenizer {
   }
 
   private Token findMatch() throws LexicalException {
-    Matcher matcher = grammar.getMatcher(toMatch);
-    Token token = null;
-    if(matcher.hitEnd() || toMatch.length() == 0) {
-      token = new Token(END_TOKEN_TYPE, "");
+    if(hitEndOfInput()) {
+      return new Token(END_TOKEN_TYPE, "");
+    }  else {
+      return foundMatch();
     } 
     else if (matcher.find()) {
       System.out.println("Full match: " + matcher.group(0));            
@@ -66,8 +66,11 @@ public class Tokenizer {
             System.out.println("Group " + i + ": " + matcher.group(i));
         }
 
+  private Token foundMatch() throws LexicalException {
+    Matcher matcher = grammar.getMatcher(toMatch);
       Token longest = null;
       Token current = null;
+    if (matcher.find()) {
       for(int i = 0; i < grammar.getNumberOfTokenTypes(); i++) {
         TokenType type = grammar.getTokenType(i);
         String matchedValue = matcher.group(type.getName());
@@ -81,12 +84,15 @@ public class Tokenizer {
       }
       token = longest;
     }
-    if (token == null) {
-      throw new LexicalException("Grammar didn't match input.");
+    if (longest == null) {
+      throw new LexicalException("Grammar didn't match.");
     }
-    return token;
+    return longest;
   }
 
+  private boolean hitEndOfInput () {
+    return grammar.getMatcher(toMatch).hitEnd() || toMatch.length() == 0;
+  }
   private boolean isCurrentLonger(Token longest ,Token current) {
     return longest == null || longest.getValue().length() < current.getValue().length();
   }
