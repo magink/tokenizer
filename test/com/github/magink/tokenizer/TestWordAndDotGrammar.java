@@ -8,8 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class TestWordAndDotGrammar {
-  String swedishWords = "Meningen består av ord.";
-  String regexWord = "[^\\W\\d|åäöÅÄÖ]+";
+  String regexWord = "[[a-zA-Z]|åäöÅÄÖ]+";
   String regexDot = "\\.+";
 
   Grammar grammar;
@@ -118,6 +117,8 @@ class TestWordAndDotGrammar {
      String input = "3";
      assertThrows(LexicalException.class, () -> {
       Tokenizer tokenizer = new Tokenizer(grammar, input);
+      assertEquals("a", tokenizer.getActiveTokenValue());
+      // Error is with the regex, \w include digits as well. 
     });
    }
 }
