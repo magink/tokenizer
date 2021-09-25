@@ -15,7 +15,6 @@ public class Tokenizer {
   private static final String END_TOKEN_TYPE = "END";
   // This is the Token Type that will be returned to the user when all tokens have been found.
 
-  private int offset = 0;
   private String toMatch = "";
   private int activeToken = 0;
   private Grammar grammar; 
@@ -68,37 +67,32 @@ public class Tokenizer {
       return new Token(END_TOKEN_TYPE, "");
     }  else {
       return foundMatch();
-    } 
-    else if (matcher.find()) {
-      System.out.println("Full match: " + matcher.group(0));            
-        for (int i = 1; i <= matcher.groupCount(); i++) {
-            System.out.println("Group " + i + ": " + matcher.group(i));
-        }
+    }
+  }
 
   private Token foundMatch() throws LexicalException {
     Matcher matcher = grammar.getMatcher(toMatch);
-      Token longest = null;
-      Token current = null;
+    Token longest = null;
+    Token current = null;
     if (matcher.find()) {
       for(int i = 0; i < grammar.getNumberOfTokenTypes(); i++) {
         TokenType type = grammar.getTokenType(i);
         String matchedValue = matcher.group(type.getName());
         if(matchedValue == null) {
           continue;
-        } else {
-          current = new Token(type.getName(), matchedValue);
+        }
+        current = new Token(type.getName(), matchedValue);
         if (isCurrentLonger(longest, current)) {
           longest = current;
-        }
+        } 
       }
-      token = longest;
     }
     if (longest == null) {
       throw new LexicalException("Grammar didn't match.");
     }
     return longest;
   }
-
+  
   private boolean hitEndOfInput () {
     return grammar.getMatcher(toMatch).hitEnd() || toMatch.length() == 0;
   }
