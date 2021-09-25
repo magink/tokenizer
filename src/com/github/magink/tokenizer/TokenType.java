@@ -1,16 +1,16 @@
 package com.github.magink.tokenizer;
 
-public class TokenType {
+ class TokenType {
   private String name;
   private String regex;
   protected TokenType(String regex, String name) {
     this.name = name;
     this.regex = regex;
   }
-  public String getRegex() {
+  protected String getRegex() {
     return regex;
   }
-  public String getName() {
+  protected String getName() {
     return name;
   }
 }
