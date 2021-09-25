@@ -73,6 +73,6 @@ public class TestArithmeticGrammar {
     tokenizer.nextToken();
     assertEquals("+", tokenizer.getActiveTokenValue());
     assertEquals("ADD", tokenizer.getActiveTokenType());
-  } 
+  }
   
 }
