@@ -75,10 +75,7 @@ public class Tokenizer {
           continue;
         } else {
           current = new Token(type.getName(), matchedValue);
-        }
-        if (longest == null ) {
-          longest = current;
-        } else if (longest.getValue().length() < current.getValue().length()) {
+        if (isCurrentLonger(longest, current)) {
           longest = current;
         }
       }
@@ -90,6 +87,9 @@ public class Tokenizer {
     return token;
   }
 
+  private boolean isCurrentLonger(Token longest ,Token current) {
+    return longest == null || longest.getValue().length() < current.getValue().length();
+  }
   private boolean hasEndToken() {
     return tokens
       .get(tokens.size() -1)
