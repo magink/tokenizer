@@ -49,8 +49,7 @@ public class Tokenizer {
   }
 
   private void findNextToken () throws LexicalException {
-    Token nextToken = null;
-    nextToken = findMatch();
+    Token nextToken = findMatch();
     tokens.add(nextToken);
   }
 
