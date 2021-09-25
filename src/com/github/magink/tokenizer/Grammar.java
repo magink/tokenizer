@@ -6,8 +6,8 @@ import java.util.regex.Pattern;
 
 /**
  * A Grammar is made of one or more types. 
- * A type consists of a name and the 
- * rules in regex
+ * A type consists of a name and rules in regex
+ * Types can be added using the addType method.
  */
 public class Grammar {
   private ArrayList<TokenType> types;
@@ -18,19 +18,19 @@ public class Grammar {
     types = new ArrayList<>();
   }
   public void addType(String regex, String name) {
-    TokenType tokenType = new TokenType(regex, name);
-    if(!types.contains(tokenType)) {
+    if(!typeExist(name)) {
+      TokenType tokenType = new TokenType(regex, name);
       types.add(tokenType);
+      makePattern();
     }
-    makePattern();
   }
-  public int getNumberOfTokenTypes() {
+  protected int getNumberOfTokenTypes() {
     return types.size();
   } 
-  public TokenType getTokenType(int index) {
+  protected TokenType getTokenType(int index) {
     return types.get(index);
   }
-  public Matcher getMatcher(String toMatch) {
+  protected Matcher getMatcher(String toMatch) {
     if (matcher == null) {
       matcher = pattern.matcher(toMatch);
     }
@@ -47,5 +47,13 @@ public class Grammar {
     }
     regexes.append("|\\S");
     pattern = Pattern.compile(regexes.toString());
+  }
+  private boolean typeExist(String name) {
+    for (TokenType type : types) {
+      if (type.getName().equals(name)) {
+        return true;
+      } 
+    }
+    return false;
   }
 }
