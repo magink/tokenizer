@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 
 /**
- * Tokenizer analyses sections of a String input and
- * classifies it according to the rules of a Grammar input. 
+ * Tokenizer analyses a String input and classifies it according to the rules of a Grammar input. 
  * The user can either request the active token, step forwards or backwards to 
- * get the next or previous token. When user has reached the end of the String input 
- * a special END token is returned.
+ * get the next or previous token. 
+ * When user has reached the end of the String input a special END token is returned.
  */
 
 public class Tokenizer {
 
   private static final String END_TOKEN_TYPE = "END";
+  // This is the Token Type that will be returned to the user when all tokens have been found.
 
   private int offset = 0;
   private String toMatch = "";
@@ -21,12 +21,19 @@ public class Tokenizer {
   private Grammar grammar; 
   private ArrayList<Token> tokens = new ArrayList<>();
 
-  // Write JavaDocs for all public methods
+  /**
+   * @param grammar Object that contain token types and regex rules.
+   * @param input The string to tokenize. 
+   * @throws LexicalException if grammar can't find a token.
+   */
   public Tokenizer(Grammar grammar, String input) throws LexicalException {
     this.toMatch = input;
     this.grammar = grammar;
     findNextToken(); 
   }
+  /**
+   * @return Both value and type  
+   */
   public String getActiveToken() {
     return tokens.get(activeToken).toString();
   }
@@ -36,6 +43,9 @@ public class Tokenizer {
   public String getActiveTokenType() {
     return tokens.get(activeToken).getType();
   }
+  /**
+   * @throws LexicalException If no Grammar patterns match. 
+   */
   public void nextToken() throws LexicalException {
     if (!hasEndToken()) {
       findNextToken();
