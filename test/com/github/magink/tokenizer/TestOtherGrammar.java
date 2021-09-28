@@ -84,14 +84,7 @@ public class TestOtherGrammar {
     assertEquals("Go", tokenizer.getActiveTokenValue());
   }
   @Test
-  @DisplayName("TC 21")
-  void noDuplicatePatterns () {
-    grammar.addType(regexWord, "WORD");
-    grammar.addType(regexWord, "WORD");
-    assertEquals(1, grammar.getNumberOfTokenTypes());
-  }
-  @Test
-  @DisplayName("TC 22") 
+  @DisplayName("TC 21") 
   void maximalMunch() throws LexicalException {
     String input = "3.14 5";
     grammar.addType(regexFloat, FLOAT);
@@ -102,6 +95,13 @@ public class TestOtherGrammar {
     tokenizer.nextToken();
     assertEquals("5", tokenizer.getActiveTokenValue());
     assertEquals(INTEGER, tokenizer.getActiveTokenType());
+  }
+  @Test
+  @DisplayName("TC 22")
+  void noDuplicatePatterns () {
+    grammar.addType(regexWord, "WORD");
+    grammar.addType(regexWord, "WORD");
+    assertEquals(1, grammar.getNumberOfTokenTypes());
   }
   
   
