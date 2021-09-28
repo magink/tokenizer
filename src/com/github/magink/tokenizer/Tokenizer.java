@@ -22,11 +22,11 @@ public class Tokenizer {
 
   /**
    * @param grammar Object that contain token types and regex rules.
-   * @param input The string to tokenize. 
+   * @param toMatch The string to tokenize. 
    * @throws LexicalException if grammar can't find a token.
    */
-  public Tokenizer(Grammar grammar, String input) throws LexicalException {
-    this.toMatch = input;
+  public Tokenizer(Grammar grammar, String toMatch) throws LexicalException {
+    this.toMatch = toMatch;
     this.grammar = grammar;
     findNextToken(); 
   }

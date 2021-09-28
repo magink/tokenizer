@@ -17,9 +17,9 @@ public class Grammar {
   public Grammar(){
     types = new ArrayList<>();
   }
-  public void addType(String regex, String name) {
-    if(!typeExist(name)) {
-      TokenType tokenType = new TokenType(regex, name);
+  public void addType(String regex, String typeName) {
+    if(!typeExist(typeName)) {
+      TokenType tokenType = new TokenType(regex, typeName);
       types.add(tokenType);
       makePattern();
     }
