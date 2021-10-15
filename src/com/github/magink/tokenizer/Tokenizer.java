@@ -45,7 +45,7 @@ public class Tokenizer {
   /**
    * @throws LexicalException If no Grammar patterns match. 
    */
-  public void nextToken() throws LexicalException {
+  public void nextToken() {
     if (!hasEndToken()) {
       findNextToken();
       activeToken++;
@@ -57,12 +57,12 @@ public class Tokenizer {
     }
   }
 
-  private void findNextToken () throws LexicalException {
+  private void findNextToken () {
     Token nextToken = findMatch();
     tokens.add(nextToken);
   }
 
-  private Token findMatch() throws LexicalException {
+  private Token findMatch() {
     if(hitEndOfInput()) {
       return new Token(END_TOKEN_TYPE, "");
     }  else {
@@ -70,7 +70,7 @@ public class Tokenizer {
     }
   }
 
-  private Token foundMatch() throws LexicalException {
+  private Token foundMatch() {
     Matcher matcher = grammar.getMatcher(toMatch);
     Token longest = null;
     Token current = null;
