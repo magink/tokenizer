@@ -21,16 +21,17 @@ class TestWordAndDotGrammar {
   }
   
   @Test
-  @DisplayName("TC1")
-  void getActiveToken() throws LexicalException {
+  @DisplayName("TC1: Should get first token when calling getActiveToken() immediately")
+  void shouldGetFirstTokenBeforeStepping() throws LexicalException {
     String input = "a";
     Tokenizer tokenizer = new Tokenizer(grammar, input);
     assertEquals("a", tokenizer.getActiveTokenValue());
     assertEquals("WORD", tokenizer.getActiveTokenType());
   }
+
   @Test
-  @DisplayName("TC2")
-  void nextToken() throws LexicalException {
+  @DisplayName("TC2: Should get second token when one step forward.")
+  void shouldGetNextTokenWhenSteppingForward() throws LexicalException {
     String input = "a aa";
     Tokenizer tokenizer = new Tokenizer(grammar, input);
     tokenizer.nextToken();
@@ -38,8 +39,8 @@ class TestWordAndDotGrammar {
     assertEquals("aa", tokenizer.getActiveTokenValue());
   }
   @Test
-  @DisplayName("TC3")
-  void getSecondTokenType() throws LexicalException {
+  @DisplayName("TC3: Should get second token type when many types are entered")
+  void getSecondTokenTypeWhenManyTypes() throws LexicalException {
     String input = "a.b";
     Tokenizer tokenizer = new Tokenizer(grammar, input);
     tokenizer.nextToken();
@@ -47,8 +48,8 @@ class TestWordAndDotGrammar {
     assertEquals(".", tokenizer.getActiveTokenValue());
   }
   @Test
-  @DisplayName("TC4")
-  void steppingTwice() throws LexicalException {
+  @DisplayName("TC4: Should Step twice when calling nextToken() twice")
+  void shouldStepTwiceWhenCallingTwice() throws LexicalException {
     String input = "a.b";
     Tokenizer tokenizer = new Tokenizer(grammar, input);
     tokenizer.nextToken();
@@ -57,8 +58,8 @@ class TestWordAndDotGrammar {
     assertEquals("b", tokenizer.getActiveTokenValue());
   }
    @Test
-   @DisplayName("TC5")
-   void steppingTwiceWithSpace() throws LexicalException  {
+   @DisplayName("TC5: Should step past whitespace when no type for whitespace exist")
+   void shouldStepPastSpaceWhenNoType() throws LexicalException  {
      String input = "aa. b";
      Tokenizer tokenizer = new Tokenizer(grammar, input);
      tokenizer.nextToken();
@@ -67,8 +68,8 @@ class TestWordAndDotGrammar {
      assertEquals("b", tokenizer.getActiveTokenValue());
    }
    @Test
-   @DisplayName("TC6")
-   void previousToken() throws LexicalException {
+   @DisplayName("TC6: Should go back to previous token when calling previousToken")
+   void shouldStepBackWhenPreviousToken() throws LexicalException {
     String input = "a .b";
     Tokenizer tokenizer = new Tokenizer(grammar, input);
     tokenizer.nextToken();
@@ -78,24 +79,24 @@ class TestWordAndDotGrammar {
     assertEquals(".", tokenizer.getActiveTokenValue());
    }
    @Test 
-   @DisplayName("TC7")
-   void emptyStringReturnsEndToken() throws LexicalException {
+   @DisplayName("TC7: Should return End-token when input string is empty.")
+   void shouldReturnEndTokenWhenInputEmpty() throws LexicalException {
     String input = "";
     Tokenizer tokenizer = new Tokenizer(grammar, input);
     assertEquals("END", tokenizer.getActiveTokenType());
     assertEquals("", tokenizer.getActiveTokenValue());
    }
    @Test
-   @DisplayName("TC8")
-   void whiteSpaceThrowsException() {
+   @DisplayName("TC8: Should throw Exception when only whitespace exist in input")
+   void shouldThrowExceptionWhenInputIsOnlyWhitespace() {
     String input = " ";
     assertThrows(LexicalException.class, () -> {
       Tokenizer tokenizer = new Tokenizer(grammar, input);
     });
    }
    @Test 
-   @DisplayName("TC9")
-   void endTokenOnEnd() throws LexicalException {
+   @DisplayName("TC9: Should return END-token when the entire input has been stepped through")
+   void shouldReturnEndTokenWhenReachedEnd() throws LexicalException {
     String input = "a";
     Tokenizer tokenizer = new Tokenizer(grammar, input);
     tokenizer.nextToken();
@@ -103,8 +104,8 @@ class TestWordAndDotGrammar {
     assertEquals("", tokenizer.getActiveTokenValue());
    }
    @Test
-   @DisplayName("TC10")
-   void previousTokenOnFirstReturnsFirst() throws LexicalException {
+   @DisplayName("TC10: Should return first token when stepping back from first token ")
+   void shouldReturnFirstTokenWhenSteppingBackFromFirst() throws LexicalException {
      String input = "a";
      Tokenizer tokenizer = new Tokenizer(grammar, input);
      tokenizer.previousToken();
@@ -112,8 +113,8 @@ class TestWordAndDotGrammar {
      assertEquals("WORD", tokenizer.getActiveTokenType());
    }
    @Test
-   @DisplayName("TC11")
-   void exceptionOnMissingTokenType() {
+   @DisplayName("TC11: Should throw exception when a token of a missing type is hit")
+   void shouldThrowExceptionWhenMissingTokenType() {
      String input = "3";
      assertThrows(LexicalException.class, () -> {
       Tokenizer tokenizer = new Tokenizer(grammar, input);

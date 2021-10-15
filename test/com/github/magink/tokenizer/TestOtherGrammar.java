@@ -27,8 +27,8 @@ public class TestOtherGrammar {
     grammar = new Grammar();
   }
   @Test
-  @DisplayName("TC 17")
-  void lastTokenBeforeEnd () throws LexicalException {
+  @DisplayName("TC 17: Should return last token when last token is hit.")
+  void shouldGetLastTokenWhenHitEnd () throws LexicalException {
     String input = "Ta en öl Dino!!";
     grammar.addType(regexWord, WORD);
     grammar.addType(regexExclamation, EXCLAMATION);
@@ -40,8 +40,8 @@ public class TestOtherGrammar {
     assertEquals("!", tokenizer.getActiveTokenValue());
   }
   @Test
-  @DisplayName("TC 18")
-  void endTokenIsReturnedAtEnd () throws LexicalException{
+  @DisplayName("TC 18: Should return end-token when stepping past last token")
+  void shouldGetEndTokenWhenSteppingPastLastToken () throws LexicalException{
     String input = "Doors and corners, kid";
     grammar.addType(regexWord, WORD);
     grammar.addType(regexExclamation, EXCLAMATION);
@@ -54,8 +54,8 @@ public class TestOtherGrammar {
     assertEquals("", tokenizer.getActiveTokenValue());
   }
   @Test
-  @DisplayName("TC 19")
-  void noPreviousTokenOnFirstToken () throws LexicalException {
+  @DisplayName("TC 19: Should return first token when stepping back from first token")
+  void shouldReturnFirstTokenWhenSteppingBackFromFirstToken () throws LexicalException {
     String input = "No laws in Ceres. Just cops.";
     grammar.addType(regexWord, WORD);
     grammar.addType(regexDot, DOT);
@@ -66,8 +66,8 @@ public class TestOtherGrammar {
     assertEquals("No", tokenizer.getActiveTokenValue());
   }
   @Test
-  @DisplayName("TC 20") // This kind of already exist in previous test
-  void hitEndTokenThenHitFirstToken () throws LexicalException {
+  @DisplayName("TC 20: Should hit both input \"borders\" and not step past them when repeatably stepping through the tokens in both directions") 
+  void ShouldHitEndTokenThenHitFirstToken () throws LexicalException {
     String input = "Go into a room too fast, kid, the room eats you";
     grammar.addType(regexWord, WORD);
     grammar.addType(regexDot, DOT);
@@ -84,8 +84,8 @@ public class TestOtherGrammar {
     assertEquals("Go", tokenizer.getActiveTokenValue());
   }
   @Test
-  @DisplayName("TC 21") 
-  void maximalMunch() throws LexicalException {
+  @DisplayName("TC 21: Should apply maximal munch rules and return longest token when several types can match") 
+  void maximalMunchWhenManyMatches() throws LexicalException {
     String input = "3.14 5";
     grammar.addType(regexFloat, FLOAT);
     grammar.addType(regexInteger, INTEGER);
@@ -97,8 +97,8 @@ public class TestOtherGrammar {
     assertEquals(INTEGER, tokenizer.getActiveTokenType());
   }
   @Test
-  @DisplayName("TC 22")
-  void noDuplicatePatterns () {
+  @DisplayName("TC 22: Should not be able to add duplicate patterns")
+  void noDuplicatePatternsWhenTwoPatternsAdded () {
     grammar.addType(regexWord, "WORD");
     grammar.addType(regexWord, "WORD");
     assertEquals(1, grammar.getNumberOfTokenTypes());

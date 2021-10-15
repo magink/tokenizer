@@ -23,24 +23,24 @@ public class TestArithmeticGrammar {
     grammar.addType(regexMul, "MUL");
   }
   @Test
-  @DisplayName("TC 12")
-  void wholeNumber() throws LexicalException {
+  @DisplayName("TC 12: Should get number token when input is a whole number")
+  void shouldGetNumberTokenWhenInputIsWhole() throws LexicalException {
     String input = "3";
     Tokenizer tokenizer = new Tokenizer(grammar, input);
     assertEquals("3", tokenizer.getActiveTokenValue());
     assertEquals("NUMBER", tokenizer.getActiveTokenType());
   }
   @Test
-  @DisplayName("TC 13")
-  void decimalNumber() throws LexicalException {
+  @DisplayName("TC 13: Should get number token for decimal when input is decimal")
+  void shouldGetNumberTokenWhenInputIsDecimal() throws LexicalException {
     String input = "3.14";
     Tokenizer tokenizer = new Tokenizer(grammar, input);
     assertEquals("3.14", tokenizer.getActiveTokenValue());
     assertEquals("NUMBER", tokenizer.getActiveTokenType());
   }
   @Test
-  @DisplayName("TC 14")
-  void multiplication() throws LexicalException {
+  @DisplayName("TC 14: Should get the multiplication token when multiplication type is added and hit.")
+  void shouldGetMultiplicationTokenWhenHitMultiplication() throws LexicalException {
     String input = "3 + 54 * 4";
     Tokenizer tokenizer = new Tokenizer(grammar, input);
     tokenizer.nextToken();
@@ -50,8 +50,8 @@ public class TestArithmeticGrammar {
     assertEquals("MUL", tokenizer.getActiveTokenType());
   }
   @Test
-  @DisplayName("TC 15")
-  void invalidGrammar() {
+  @DisplayName("TC 15: Should throw exception when no token type exist for current token")
+  void shouldThrowExceptionWhenHittingTokenWithNoTypeAdded() {
     String input = "3+5 # 4";
     assertThrows(LexicalException.class, () -> {
       Tokenizer tokenizer = new Tokenizer(grammar, input);
@@ -62,8 +62,8 @@ public class TestArithmeticGrammar {
     });
   }
   @Test 
-  @DisplayName("TC 16")
-  void steppingThrice() throws LexicalException {
+  @DisplayName("TC 16: Should get addition token when stepping three times.")
+  void shouldGetAdditionTokenWhenSteppingThrice() throws LexicalException {
     String input = "3.0+54.1     + 4.2";
     Tokenizer tokenizer = new Tokenizer(grammar, input);
     tokenizer.nextToken();
