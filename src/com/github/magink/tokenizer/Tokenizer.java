@@ -1,7 +1,5 @@
 package com.github.magink.tokenizer;
 
-import java.util.ArrayList;
-
 /**
  * Tokenizer analyses a String input and classifies it according to the rules of a Grammar input. 
  * The user can either request the active token, step forwards or backwards to 
@@ -14,7 +12,7 @@ public class Tokenizer {
   private String toMatch = "";
   private int activeToken = 0;
   private Grammar grammar; 
-  private ArrayList<Token> tokens = new ArrayList<>();
+  private Tokens tokens = new Tokens();
 
   /**
    * @param grammar Object that contain token types and regex rules.
@@ -27,16 +25,16 @@ public class Tokenizer {
     findNextToken(); 
   }
   /**
-   * @return Both value and type  
+   * @return A Token object that contain both the value and the type.  
    */
-  public String getActiveToken() {
-    return tokens.get(activeToken).toString();
+  public Token getActiveToken() {
+    return tokens.getToken(activeToken);
   }
   public String getActiveTokenValue() {
-    return tokens.get(activeToken).getValue();
+    return tokens.getToken(activeToken).getValue();
   }
   public String getActiveTokenType() {
-    return tokens.get(activeToken).getType();
+    return tokens.getToken(activeToken).getType();
   }
   /**
    * @throws LexicalException If no Grammar patterns match. 
@@ -55,14 +53,14 @@ public class Tokenizer {
 
   private void findNextToken () {
     Token nextToken = grammar.findMatch(toMatch);
-    tokens.add(nextToken);
+    tokens.addToken(nextToken);
   }
 
 
 
   private boolean hasEndToken() {
     return tokens
-      .get(tokens.size() -1)
+      .getToken(tokens.size() -1)
       .getType()
       .equals(grammar.getEndTokenType());
   }
