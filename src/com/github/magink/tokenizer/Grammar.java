@@ -36,26 +36,22 @@ public class Grammar {
   public String getEndTokenType() {
     return END_TOKEN_TYPE;
   }
- 
-  protected TokenType getTokenType(int index) {
-    return types.get(index);
-  }
 
   protected Token findMatch(String toMatch) {
     setMatcher(toMatch);
     if(hitEndOfInput(toMatch)) {
       return new Token(END_TOKEN_TYPE, "");
     }  else {
-      return foundMatch(toMatch);
+      return foundMatch();
     }
   }
 
-  private Token foundMatch(String toMatch) {
+  private Token foundMatch() {
     Token longest = null;
     Token current = null;
     if (matcher.find()) {
       for(int i = 0; i < types.size(); i++) {
-        TokenType type = getTokenType(i);
+        TokenType type = types.get(i);
         String matchedValue = matcher.group(type.getName());
         if(matchedValue == null) {
           continue;
@@ -88,7 +84,7 @@ public class Grammar {
       if(i > 0) {
         regexes.append("|");
       }
-      String token = String.format("(?<%s>%s)", getTokenType(i).getName(), getTokenType(i).getRegex());
+      String token = types.get(i).getTokenTypePattern();
       regexes.append(token);
     }
     regexes.append("|\\S");

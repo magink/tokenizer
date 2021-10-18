@@ -7,8 +7,8 @@ package com.github.magink.tokenizer;
     this.name = name;
     this.regex = regex;
   }
-  protected String getRegex() {
-    return regex;
+  protected String getTokenTypePattern() {
+    return String.format("(?<%s>%s)", name, regex);
   }
   protected String getName() {
     return name;

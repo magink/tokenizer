@@ -56,8 +56,6 @@ public class Tokenizer {
     tokens.addToken(nextToken);
   }
 
-
-
   private boolean hasEndToken() {
     return tokens
       .getToken(tokens.size() -1)
