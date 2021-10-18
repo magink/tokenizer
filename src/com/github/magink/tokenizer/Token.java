@@ -1,6 +1,6 @@
 package com.github.magink.tokenizer;
 
-class Token {
+public class Token {
   private String type;
   private String value;
   Token(String type, String value) {
