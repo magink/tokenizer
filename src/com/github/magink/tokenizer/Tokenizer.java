@@ -1,7 +1,6 @@
 package com.github.magink.tokenizer;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
 
 /**
  * Tokenizer analyses a String input and classifies it according to the rules of a Grammar input. 
@@ -11,9 +10,6 @@ import java.util.regex.Matcher;
  */
 
 public class Tokenizer {
-
-  private static final String END_TOKEN_TYPE = "END";
-  // This is the Token Type that will be returned to the user when all tokens have been found.
 
   private String toMatch = "";
   private int activeToken = 0;
@@ -45,7 +41,7 @@ public class Tokenizer {
   /**
    * @throws LexicalException If no Grammar patterns match. 
    */
-  public void nextToken() {
+  public void nextToken() throws LexicalException {
     if (!hasEndToken()) {
       findNextToken();
       activeToken++;
@@ -54,55 +50,20 @@ public class Tokenizer {
   public void previousToken() {
     if(activeToken > 0) {
       activeToken--;
-    }
+    } 
   }
 
   private void findNextToken () {
-    Token nextToken = findMatch();
+    Token nextToken = grammar.findMatch(toMatch);
     tokens.add(nextToken);
   }
 
-  private Token findMatch() {
-    if(hitEndOfInput()) {
-      return new Token(END_TOKEN_TYPE, "");
-    }  else {
-      return foundMatch();
-    }
-  }
 
-  private Token foundMatch() {
-    Matcher matcher = grammar.getMatcher(toMatch);
-    Token longest = null;
-    Token current = null;
-    if (matcher.find()) {
-      for(int i = 0; i < grammar.getNumberOfTokenTypes(); i++) {
-        TokenType type = grammar.getTokenType(i);
-        String matchedValue = matcher.group(type.getName());
-        if(matchedValue == null) {
-          continue;
-        }
-        current = new Token(type.getName(), matchedValue);
-        if (isCurrentLonger(longest, current)) {
-          longest = current;
-        } 
-      }
-    }
-    if (longest == null) {
-      throw new LexicalException("Grammar didn't match.");
-    }
-    return longest;
-  }
-  
-  private boolean hitEndOfInput () {
-    return grammar.getMatcher(toMatch).hitEnd() || toMatch.length() == 0;
-  }
-  private boolean isCurrentLonger(Token longest ,Token current) {
-    return longest == null || longest.getValue().length() < current.getValue().length();
-  }
+
   private boolean hasEndToken() {
     return tokens
       .get(tokens.size() -1)
       .getType()
-      .equals(END_TOKEN_TYPE);
+      .equals(grammar.getEndTokenType());
   }
 }
