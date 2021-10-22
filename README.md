@@ -30,20 +30,25 @@ Step to next token by calling
 
 - `.nextToken()`
 
-If no tokens are found a LexicalException is thrown. If at end of input an END token is returned.
+If no tokens are found a LexicalException is thrown.
 
 Step back to previous token by calling.
 
 - `.previousToken()`
 
+If at the end of input, an end token is returned. By default this token type is simply called "END".
+The user also has the option to set a custom end token by using the overloaded constructor when creating a grammar object.
+
+- `Grammar grammar = new Grammar("STOP")`
+
 ## Examples
 
-### Example 1: Creating a Grammar from two regexes
+### Example 1: Creating a Grammar from two regexes with custom end token
 
 ```java
 String regexWord = "[[a-zA-Z]|åäöÅÄÖ]+";
 String regexDot = "\\.+";
-Grammar myGrammar = new Grammar()
+Grammar myGrammar = new Grammar("NO_MORE_TOKENS")
 myGrammar.addType(regexWord, "WORD");
 myGrammar.addType(regexDot, "DOT");
 ```

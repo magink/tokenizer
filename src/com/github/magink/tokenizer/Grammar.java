@@ -11,17 +11,33 @@ import java.util.regex.Pattern;
  */
 public class Grammar {
 
-  private static final String END_TOKEN_TYPE = "END";
+  private final String END_TOKEN_TYPE;
   // This is the Token Type that will be returned to the user when all tokens have been found.
 
   private ArrayList<TokenType> types;
   private Pattern pattern;
   private Matcher matcher;
 
+  /**
+   * Create a new grammar with the default end token type "END"
+   */
+
   public Grammar(){
+    END_TOKEN_TYPE = "END";
     types = new ArrayList<>();
   }
+
+  /**
+   * @param endTokenType set a custom end token type.
+   */
+
+  public Grammar(String endTokenType){
+    END_TOKEN_TYPE = endTokenType.toUpperCase();
+    types = new ArrayList<>();
+  }
+
   public void addType(String regex, String typeName) {
+    
     if(!typeExist(typeName)) {
       TokenType tokenType = new TokenType(regex, typeName);
       types.add(tokenType);
