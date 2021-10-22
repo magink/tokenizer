@@ -91,7 +91,7 @@ public class Grammar {
     pattern = Pattern.compile(regexes.toString());
   }
     
-  protected boolean hitEndOfInput (String toMatch) {
+  private boolean hitEndOfInput (String toMatch) {
     return matcher.hitEnd() || toMatch.length() == 0;
   }
 
@@ -103,5 +103,4 @@ public class Grammar {
     }
     return false;
   }
-  
 }
