@@ -53,18 +53,18 @@ public class Grammar {
     return END_TOKEN_TYPE;
   }
 
-  protected Token findMatch(String toMatch) {
+  protected TokenImplementation findMatch(String toMatch) {
     setMatcher(toMatch);
     if(hitEndOfInput(toMatch)) {
-      return new TokenImp(END_TOKEN_TYPE, "");
+      return new TokenImplementation(END_TOKEN_TYPE, "");
     }  else {
       return foundMatch();
     }
   }
 
-  private Token foundMatch() {
-    Token longest = null;
-    Token current = null;
+  private TokenImplementation foundMatch() {
+    TokenImplementation longest = null;
+    TokenImplementation current = null;
     if (matcher.find()) {
       for(int i = 0; i < types.size(); i++) {
         TokenType type = types.get(i);
@@ -72,7 +72,7 @@ public class Grammar {
         if(matchedValue == null) {
           continue;
         }
-        current = new TokenImp(type.getName(), matchedValue);
+        current = new TokenImplementation(type.getName(), matchedValue);
         if (isCurrentLonger(longest, current)) {
           longest = current;
         } 
@@ -90,7 +90,7 @@ public class Grammar {
     }
   }
 
-  private boolean isCurrentLonger(Token longest ,Token current) {
+  private boolean isCurrentLonger(TokenImplementation longest ,TokenImplementation current) {
     return longest == null || longest.getValue().length() < current.getValue().length();
   }
   

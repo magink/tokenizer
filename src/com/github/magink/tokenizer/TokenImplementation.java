@@ -1,9 +1,9 @@
 package com.github.magink.tokenizer;
 
-public class TokenImp implements Token {
+public class TokenImplementation implements Token {
   private String type;
   private String value;
-  TokenImp(String type, String value) {
+  TokenImplementation(String type, String value) {
     this.type = type;
     this.value = value;
   }

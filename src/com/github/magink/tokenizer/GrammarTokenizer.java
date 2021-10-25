@@ -9,7 +9,7 @@ import java.util.stream.Stream;
  * When user has reached the end of the String input a special END token is returned.
  */
 
-public class TokenizerImp implements Tokenizer {
+public class GrammarTokenizer implements Tokenizer {
 
   private String toMatch = "";
   private int activeToken = 0;
@@ -21,22 +21,22 @@ public class TokenizerImp implements Tokenizer {
    * @param toMatch The string to tokenize. 
    * @throws LexicalException if grammar can't find a token.
    */
-  public TokenizerImp(Grammar grammar, String toMatch) throws LexicalException {
+  public GrammarTokenizer(Grammar grammar, String toMatch) throws LexicalException {
     this.toMatch = toMatch;
     this.grammar = grammar;
     findNextToken(); 
   }
-  /**
-   * @return A Token object that contain both the value and the type.  
-   */
+
   @Override
   public Token getActiveToken() {
     return tokens.getToken(activeToken);
   }
+
   @Override
   public String getActiveTokenValue() {
     return tokens.getToken(activeToken).getValue();
   }
+
   @Override
   public String getActiveTokenType() {
     return tokens.getToken(activeToken).getType();
@@ -64,7 +64,7 @@ public class TokenizerImp implements Tokenizer {
   }
 
   private void findNextToken () {
-    Token nextToken = grammar.findMatch(toMatch);
+    TokenImplementation nextToken = grammar.findMatch(toMatch);
     tokens.addToken(nextToken);
   }
 
