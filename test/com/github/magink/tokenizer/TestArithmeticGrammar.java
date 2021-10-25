@@ -26,7 +26,7 @@ public class TestArithmeticGrammar {
   @DisplayName("TC 12: Should get number token when input is a whole number")
   void shouldGetNumberTokenWhenInputIsWhole() throws LexicalException {
     String input = "3";
-    Tokenizer tokenizer = new Tokenizer(grammar, input);
+    TokenizerImp tokenizer = new TokenizerImp(grammar, input);
     assertEquals("3", tokenizer.getActiveTokenValue());
     assertEquals("NUMBER", tokenizer.getActiveTokenType());
   }
@@ -34,7 +34,7 @@ public class TestArithmeticGrammar {
   @DisplayName("TC 13: Should get number token for decimal when input is decimal")
   void shouldGetNumberTokenWhenInputIsDecimal() throws LexicalException {
     String input = "3.14";
-    Tokenizer tokenizer = new Tokenizer(grammar, input);
+    TokenizerImp tokenizer = new TokenizerImp(grammar, input);
     assertEquals("3.14", tokenizer.getActiveTokenValue());
     assertEquals("NUMBER", tokenizer.getActiveTokenType());
   }
@@ -42,7 +42,7 @@ public class TestArithmeticGrammar {
   @DisplayName("TC 14: Should get the multiplication token when multiplication type is added and hit.")
   void shouldGetMultiplicationTokenWhenHitMultiplication() throws LexicalException {
     String input = "3 + 54 * 4";
-    Tokenizer tokenizer = new Tokenizer(grammar, input);
+    TokenizerImp tokenizer = new TokenizerImp(grammar, input);
     tokenizer.nextToken();
     tokenizer.nextToken();
     tokenizer.nextToken();
@@ -54,7 +54,7 @@ public class TestArithmeticGrammar {
   void shouldThrowExceptionWhenHittingTokenWithNoTypeAdded() {
     String input = "3+5 # 4";
     assertThrows(LexicalException.class, () -> {
-      Tokenizer tokenizer = new Tokenizer(grammar, input);
+      TokenizerImp tokenizer = new TokenizerImp(grammar, input);
       tokenizer.nextToken();
       tokenizer.nextToken();
       tokenizer.nextToken();
@@ -65,7 +65,7 @@ public class TestArithmeticGrammar {
   @DisplayName("TC 16: Should get addition token when stepping three times.")
   void shouldGetAdditionTokenWhenSteppingThrice() throws LexicalException {
     String input = "3.0+54.1     + 4.2";
-    Tokenizer tokenizer = new Tokenizer(grammar, input);
+    TokenizerImp tokenizer = new TokenizerImp(grammar, input);
     tokenizer.nextToken();
     tokenizer.previousToken();
     tokenizer.nextToken();

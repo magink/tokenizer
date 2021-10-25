@@ -32,7 +32,7 @@ public class TestOtherGrammar {
     String input = "Ta en öl Dino!!";
     grammar.addType(regexWord, WORD);
     grammar.addType(regexExclamation, EXCLAMATION);
-    Tokenizer tokenizer = new Tokenizer(grammar, input);
+    TokenizerImp tokenizer = new TokenizerImp(grammar, input);
     for(int i = 0; i < 5; i++) {
       tokenizer.nextToken();
     }
@@ -46,7 +46,7 @@ public class TestOtherGrammar {
     grammar.addType(regexWord, WORD);
     grammar.addType(regexExclamation, EXCLAMATION);
     grammar.addType(regexComma, COMMA);
-    Tokenizer tokenizer = new Tokenizer(grammar, input);
+    TokenizerImp tokenizer = new TokenizerImp(grammar, input);
     for(int i = 0; i < 5 ; i++) {
       tokenizer.nextToken();
     }
@@ -59,7 +59,7 @@ public class TestOtherGrammar {
     String input = "No laws in Ceres. Just cops.";
     grammar.addType(regexWord, WORD);
     grammar.addType(regexDot, DOT);
-    Tokenizer tokenizer = new Tokenizer(grammar, input);
+    TokenizerImp tokenizer = new TokenizerImp(grammar, input);
     tokenizer.previousToken();
     tokenizer.previousToken();
     assertEquals(WORD, tokenizer.getActiveTokenType());
@@ -72,7 +72,7 @@ public class TestOtherGrammar {
     grammar.addType(regexWord, WORD);
     grammar.addType(regexDot, DOT);
     grammar.addType(regexComma, COMMA);
-    Tokenizer tokenizer = new Tokenizer(grammar, input);
+    TokenizerImp tokenizer = new TokenizerImp(grammar, input);
     for(int i = 0; i < 15; i++) {
       tokenizer.nextToken();
     }
@@ -89,7 +89,7 @@ public class TestOtherGrammar {
     String input = "3.14 5";
     grammar.addType(regexFloat, FLOAT);
     grammar.addType(regexInteger, INTEGER);
-    Tokenizer tokenizer = new Tokenizer(grammar, input);
+    TokenizerImp tokenizer = new TokenizerImp(grammar, input);
     assertEquals("3.14", tokenizer.getActiveTokenValue());
     assertEquals(FLOAT, tokenizer.getActiveTokenType());
     tokenizer.nextToken();
