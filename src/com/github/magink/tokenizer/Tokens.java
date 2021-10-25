@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class Tokens {
-  private ArrayList<TokenImp> tokens;
+  private ArrayList<Token> tokens;
   
   public Tokens() {
     tokens = new ArrayList<>();
   }
 
-  public TokenImp getToken(int index) {
+  public Token getToken(int index) {
     return tokens.get(index);
   }
 
@@ -18,11 +18,11 @@ public class Tokens {
     return tokens.size();
   }
   
-  public Stream<TokenImp> getStream() {
+  public Stream<Token> getStream() {
     return tokens.stream();
   }
 
-  protected void addToken(TokenImp toAdd) {
+  protected void addToken(Token toAdd) {
     tokens.add(toAdd);
   }
 

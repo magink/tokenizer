@@ -29,18 +29,28 @@ public class TokenizerImp implements Tokenizer {
   /**
    * @return A Token object that contain both the value and the type.  
    */
-  public TokenImp getActiveToken() {
+  @Override
+  public Token getActiveToken() {
     return tokens.getToken(activeToken);
   }
+  @Override
   public String getActiveTokenValue() {
     return tokens.getToken(activeToken).getValue();
   }
+  @Override
   public String getActiveTokenType() {
     return tokens.getToken(activeToken).getType();
   }
+  
+  @Override
+  public Stream<Token> getTokenStream() {
+    return tokens.getStream();
+  }
+
   /**
    * @throws LexicalException If no Grammar patterns match. 
    */
+  @Override
   public void nextToken() throws LexicalException {
     if (!hasEndToken()) {
       findNextToken();
@@ -54,7 +64,7 @@ public class TokenizerImp implements Tokenizer {
   }
 
   private void findNextToken () {
-    TokenImp nextToken = grammar.findMatch(toMatch);
+    Token nextToken = grammar.findMatch(toMatch);
     tokens.addToken(nextToken);
   }
 
@@ -65,8 +75,4 @@ public class TokenizerImp implements Tokenizer {
       .equals(grammar.getEndTokenType());
   }
   
-  @Override
-  public Stream<TokenImp> getTokenStream() {
-    return tokens.getStream();
-  }
 }
