@@ -1,5 +1,6 @@
 package com.github.magink.tokenizer;
 
+import java.util.Iterator;
 import java.util.stream.Stream;
 
 /**
@@ -43,8 +44,8 @@ public class GrammarTokenizer implements Tokenizer {
   }
   
   @Override
-  public Stream<Token> getTokenStream() {
-    return tokens.getStream();
+  public Iterator<Token> getTokenIterator() {
+    return tokens.getIterator();
   }
 
   /**

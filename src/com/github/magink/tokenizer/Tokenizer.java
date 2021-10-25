@@ -1,6 +1,6 @@
 package com.github.magink.tokenizer;
 
-import java.util.stream.Stream;
+import java.util.Iterator;
 
 public interface Tokenizer {
 
@@ -20,9 +20,9 @@ public interface Tokenizer {
   String getActiveTokenType();
 
     /**
-   * @return return a stream of Tokens
+   * @return return a iterator of Tokens
    */
-  Stream<Token> getTokenStream();
+  Iterator<Token> getTokenIterator();
 
   /**
    * Step to the next token

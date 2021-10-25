@@ -1,7 +1,7 @@
 package com.github.magink.tokenizer;
 
 import java.util.ArrayList;
-import java.util.stream.Stream;
+import java.util.Iterator;
 
 public class Tokens {
   private ArrayList<Token> tokens;
@@ -18,8 +18,8 @@ public class Tokens {
     return tokens.size();
   }
   
-  public Stream<Token> getStream() {
-    return tokens.stream();
+  public Iterator<Token> getIterator() {
+    return tokens.iterator();
   }
 
   protected void addToken(Token toAdd) {
